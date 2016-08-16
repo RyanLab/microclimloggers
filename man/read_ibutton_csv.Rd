@@ -9,7 +9,7 @@ read_ibutton_csv(csv_file, parse_name = NULL)
 \arguments{
 \item{csv_file}{input path}
 
-\item{parse_name}{}
+\item{parse_name}{function that tries to extract metadata from the file name}
 }
 \value{
 a data.frame

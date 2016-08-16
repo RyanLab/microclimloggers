@@ -60,7 +60,7 @@ read_usb_logger <- function(csv_file, parse_name = NULL){
 #' Read iButton Hygrochron files
 #'
 #' @param csv_file input path
-#' @param parse_name
+#' @param parse_name function that tries to extract metadata from the file name
 #'
 #' @return a data.frame
 #' @export
