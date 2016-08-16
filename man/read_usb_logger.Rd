@@ -7,7 +7,12 @@
 read_usb_logger(csv_file, parse_name = NULL)
 }
 \arguments{
-\item{parse_name}{}
+\item{csv_file}{input path}
+
+\item{parse_name}{function that tries to extract metadata from the file name}
+}
+\value{
+a data.frame
 }
 \description{
 Read Ecuadorean USB loggers

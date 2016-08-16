@@ -7,7 +7,12 @@
 read_ibutton_csv(csv_file, parse_name = NULL)
 }
 \arguments{
+\item{csv_file}{input path}
+
 \item{parse_name}{}
+}
+\value{
+a data.frame
 }
 \description{
 Read iButton Hygrochron files

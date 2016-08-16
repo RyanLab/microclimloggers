@@ -3,6 +3,9 @@
 #'
 #' @param csv_file path to input csv file
 #' @param strip_logger_events logical, defaults to TRUE. Remove events relating to connecting/disconnecting the coupler and return only the environmental variables
+#' @importFrom lubridate mdy_hms
+#' @importFrom stringr str_extract
+#' @importFrom tidyr separate
 #'
 #' @return a data.frame
 #' @export

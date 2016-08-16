@@ -3,3 +3,6 @@
 export(read_hobo_csv)
 export(read_ibutton_csv)
 export(read_usb_logger)
+importFrom(lubridate,mdy_hms)
+importFrom(stringr,str_extract)
+importFrom(tidyr,separate)
