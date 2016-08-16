@@ -1,2 +1,2 @@
-# ryanlab_data_loggers
+# ryanlabloggers
 An R package to process various microclimate logger data formats used by the Ryan lab and collaborators.
