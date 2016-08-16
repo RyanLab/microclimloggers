@@ -11,14 +11,12 @@ An R package to process various microclimate logger data formats used by the Rya
 
 Install `ryanlabloggers` from GitHub:
 
-
-```r
+```{r eval=FALSE}
 install.packages("devtools")
 devtools::install_github("pboesu/ryanlabloggers")
 ```
 
-
-```r
+```{r}
 library('ryanlabloggers')
 ```
 
