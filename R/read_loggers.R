@@ -114,5 +114,7 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 #' @export
 #'
 read_ibutton_csv <- function(csv_file, parse_name = NULL){
-
+  con <- file(csv_file, encoding="UTF-8-BOM")
+  header <- readLines(con=con, n=14)
+  close(con)
 }
