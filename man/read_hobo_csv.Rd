@@ -10,7 +10,7 @@ read_hobo_csv(csv_file)
 \item{csv_file}{path to input csv file}
 }
 \value{
-a data.frame
+a microclim object
 }
 \description{
 Read HOBO loggers
