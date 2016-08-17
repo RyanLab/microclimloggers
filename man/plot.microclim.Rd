@@ -4,10 +4,12 @@
 \alias{plot.microclim}
 \title{Plot microclimate logger output}
 \usage{
-\method{plot}{microclim}(x)
+\method{plot}{microclim}(x, ...)
 }
 \arguments{
 \item{x}{a microclim object}
+
+\item{...}{further arguments to plot}
 }
 \value{
 a plot
