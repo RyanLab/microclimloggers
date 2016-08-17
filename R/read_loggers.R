@@ -42,6 +42,8 @@ read_hobo_csv <- function(csv_file){
   if(length(grep('RH', header_bits))>0) df_out$RH.perc <- hobofile[,grep('RH', header_bits)]
   #bind variables, timestamp, and timezone
   df_out <- cbind(subset(hobofile, select = c("Year", "Month", "Day", "Hour", "Minute", "Second", "tz")), df_out)
+  #separate environmental data and NAs from logger events
+  df_env <- df_out[complete.cases(df_out),]
 
   #Find and process logger events
   logger_events <- numeric(4)
@@ -62,11 +64,7 @@ read_hobo_csv <- function(csv_file){
     df_logger <- NULL
   }
 
-
-
-  #separate environmental data and logger events
-  df_env <- df_out[complete.cases(df_out),]
-  return(list(df_env = df_env, df_logger = df_logger))
+  return(structure(list(df_env = df_env, df_logger = df_logger), class="microclim"))
 }
 
 #' Read Ecuadorean USB loggers
