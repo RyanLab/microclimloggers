@@ -3,5 +3,7 @@ test_hobo_T <- "C:\\Users\\Philipp\\Dropbox\\RyanLabLoggerProject\\DD\\T_01_0731
 test_df<-read_hobo_csv(test_hobo_RH)
 test_df2<-read_hobo_csv(test_hobo_T)
 
+csv_file=test_hobo_RH
+
 
 

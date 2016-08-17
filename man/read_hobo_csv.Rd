@@ -4,12 +4,10 @@
 \alias{read_hobo_csv}
 \title{Read HOBO loggers}
 \usage{
-read_hobo_csv(csv_file, strip_logger_events = TRUE)
+read_hobo_csv(csv_file)
 }
 \arguments{
 \item{csv_file}{path to input csv file}
-
-\item{strip_logger_events}{logical, defaults to TRUE. Remove events relating to connecting/disconnecting the coupler and return only the environmental variables}
 }
 \value{
 a data.frame
