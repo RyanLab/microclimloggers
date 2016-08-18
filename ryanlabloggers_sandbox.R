@@ -15,3 +15,7 @@ txt_file=test_usb
 test_inkbird <- read_inkbird_txt(test_usb)
 plot(test_inkbird)
 str(test_inkbird)
+
+#iButtons
+test_ibutton <- "C:\\Users\\Philipp\\Dropbox\\RyanLabLoggerProject\\Casitas_1 month data.csv"
+csv_file=test_ibutton

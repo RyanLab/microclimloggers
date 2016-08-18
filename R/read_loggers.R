@@ -107,6 +107,8 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 
 #' Read iButton Hygrochron files
 #'
+#' Function to read csv files containing data dumps of multiple iButtons.
+#'
 #' @param csv_file input path
 #' @param parse_name function that tries to extract metadata from the file name
 #'
@@ -114,7 +116,24 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 #' @export
 #'
 read_ibutton_csv <- function(csv_file, parse_name = NULL){
-  con <- file(csv_file, encoding="UTF-8-BOM")
-  header <- readLines(con=con, n=14)
+  con <- file(csv_file)
+  all_lines <- readLines(con=con)
   close(con)
+
+  #find start of individual data sets
+  start_of_set <- grep("Date/time logger downloaded:", all_lines)
+  end_of_file <- grep("download complete", all_lines)
+  #datasets end two lines above the start of the next dataset, so we are using the start line indices to find the end lines.
+  #last data set ends one line before end of file
+  end_of_set <- c(start_of_set[-1]-2, end_of_file-1)
+  if(length(start_of_set)!=length(end_of_set)) stop("Unequal number of dataset headers and footers. File format not as expected.")
+
+  #create list of subfiles
+  sets <- lapply(seq_along(start_of_set), function(x) all_lines[start_of_set[x]:end_of_set[x]])
+
+  #find individual header lengths
+  data_start <- grep("[0-9]{4}\\s[0-9]", sets[[1]])
+  #parse individual sets
+
+  #collate
 }
