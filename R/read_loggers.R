@@ -116,6 +116,9 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 #' @export
 #'
 read_ibutton_csv <- function(csv_file, parse_name = NULL){
+  #change system locale to enable graceful string handling for files containing non-ascii characters
+  Sys.setlocale('LC_ALL','C')
+
   con <- file(csv_file)
   all_lines <- readLines(con=con)
   close(con)
@@ -132,8 +135,11 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
   sets <- lapply(seq_along(start_of_set), function(x) all_lines[start_of_set[x]:end_of_set[x]])
 
   #find individual header lengths
-  data_start <- grep("[0-9]{4}\\s[0-9]", sets[[1]])
+  data_start <- min(grep("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", sets[[1]]))
   #parse individual sets
 
   #collate
+
+  #restore system locale to operating system default
+  Sys.setlocale('LC_ALL','')
 }
