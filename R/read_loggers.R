@@ -113,6 +113,7 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 #' @param parse_name function that tries to extract metadata from the file name
 #'
 #' @return a data.frame
+#' @importFrom plyr ldply
 #' @export
 #'
 read_ibutton_csv <- function(csv_file, parse_name = NULL){
@@ -133,13 +134,36 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
 
   #create list of subfiles
   sets <- lapply(seq_along(start_of_set), function(x) all_lines[start_of_set[x]:end_of_set[x]])
-
-  #find individual header lengths
-  data_start <- min(grep("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", sets[[1]]))
   #parse individual sets
-
-  #collate
+  df_env <- plyr::ldply(sets, parse_ibutton_list)
 
   #restore system locale to operating system default
   Sys.setlocale('LC_ALL','')
+
+  return(structure(list(df_env = df_env, df_logger = NULL), class="microclim"))
+}
+
+#' Internal function that parses an individual logger data block from a multilogger iButton file
+#'
+#' @param x list
+#'
+#' @return a data.frame
+#'
+#' @examples
+parse_ibutton_list <- function(x){
+  #find individual header lengths
+  data_start <- min(grep("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", x))
+  #determine data column names
+  col_names <- c("Timestamp","Temp.C","RH.perc")
+  warning("using static column name order")
+  #parse data portion
+  tc <- textConnection(x[data_start:length(x)])
+  df_env <- read.csv(tc, stringsAsFactors = FALSE, header=FALSE, colClasses = c("POSIXct", "numeric","numeric"), col.names = col_names)
+  #find logger serial number
+  logger_serial_pos <- grep("Logger serial number:", x)
+  #remove quotes and split string retaining only the serial number
+  logger_serial <- stringr::str_split_fixed(stringr::str_replace_all(x[logger_serial_pos], pattern='\"', ''), ',', 2)[1,2]
+  df_env$Logger.SN <- rep(logger_serial, nrow(df_env))
+  df_env <- tidyr::separate(df_env, Timestamp, c("Year", "Month", "Day", "Hour", "Minute", "Second"), remove=FALSE, convert=TRUE)
+  return(df_env)
 }
