@@ -1,7 +1,7 @@
 ryanlabloggers
 =====
 
-[![Build Status](https://api.travis-ci.org/pboesu/ryanlabloggers.png)](https://travis-ci.org/pboesu/ryanlabloggers)
+[![Build Status](https://api.travis-ci.org/RyanLab/ryanlabloggers.png)](https://travis-ci.org/RyanLab/ryanlabloggers)
 
 `ryanlabloggers`: Data Wrangling Functions For Microclimate Loggers
 
