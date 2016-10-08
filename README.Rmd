@@ -1,5 +1,9 @@
-ryanlabloggers
-=====
+---
+title: ryanlabloggers
+output:
+  md_document:
+    variant: markdown_github
+---
 
 [![Build Status](https://api.travis-ci.org/RyanLab/ryanlabloggers.png)](https://travis-ci.org/RyanLab/ryanlabloggers)
 
