@@ -5,6 +5,8 @@
 #' @importFrom lubridate mdy_hms
 #' @importFrom stringr str_extract str_replace_all
 #' @importFrom tidyr separate gather
+#' @importFrom stats complete.cases
+#' @importFrom utils read.csv
 #'
 #' @return a microclim object
 #' @export
@@ -74,6 +76,7 @@ read_hobo_csv <- function(csv_file){
 #' @param tz string a timezone designation that is compatible with the Olson time zones. See ?timezones for more details.
 #' @importFrom lubridate ymd_hms
 #' @importFrom tidyr separate
+#' @importFrom utils read.table
 #'
 #' @return a microclim object
 #' @export
@@ -149,7 +152,6 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
 #'
 #' @return a data.frame
 #'
-#' @examples
 parse_ibutton_list <- function(x){
   #find individual header lengths
   data_start <- min(grep("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", x))

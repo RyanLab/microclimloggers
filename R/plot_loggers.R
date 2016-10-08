@@ -2,6 +2,7 @@
 #'
 #' @param x a microclim object
 #' @param ... further arguments to plot
+#' @importFrom graphics par plot
 #'
 #' @return a plot
 #' @export

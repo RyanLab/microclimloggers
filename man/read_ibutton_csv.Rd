@@ -15,6 +15,6 @@ read_ibutton_csv(csv_file, parse_name = NULL)
 a data.frame
 }
 \description{
-Read iButton Hygrochron files
+Function to read csv files containing data dumps of multiple iButtons.
 }
 
