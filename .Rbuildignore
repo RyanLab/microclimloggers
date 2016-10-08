@@ -4,3 +4,4 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^ryanlabloggers_sandbox\.R$
+inst/img

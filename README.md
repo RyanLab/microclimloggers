@@ -11,15 +11,37 @@ Install `ryanlabloggers` from GitHub:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("pboesu/ryanlabloggers")
-```
-
-``` r
-library('ryanlabloggers')
+devtools::install_github("RyanLab/ryanlabloggers")
 ```
 
 Examples
 --------
+
+Load `ryanlabloggers` package:
+
+``` r
+library("ryanlabloggers")
+```
+
+Get the path of an example file (HOBO RH Logger)
+
+``` r
+hobo_example_path <- system.file("extdata", "RH_41_073116.csv", package = "ryanlabloggers")
+```
+
+Parse the file
+
+``` r
+hobo_data <- read_hobo_csv(hobo_example_path)
+```
+
+Plot the file
+
+``` r
+plot(hobo_data)
+```
+
+![](inst/img/unnamed-chunk-5-1.png)
 
 Meta
 ----
