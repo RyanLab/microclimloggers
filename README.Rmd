@@ -59,3 +59,6 @@ plot(hobo_data)
 * Please [report any issues or bugs](https://github.com/pboesu/ryanlabloggers/issues).
 * License: GPL-3
 * Get citation information for `ryanlabloggers` in R doing `citation(package = 'ryanlabloggers')`
+* This work was supported by funding from NSF DEB 1641145 and NSF DEB 1518681
+
+
