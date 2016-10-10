@@ -49,3 +49,8 @@ Meta
 -   Please [report any issues or bugs](https://github.com/pboesu/ryanlabloggers/issues).
 -   License: GPL-3
 -   Get citation information for `ryanlabloggers` in R doing `citation(package = 'ryanlabloggers')`
+
+Funding
+-------
+
+-   This work was supported by funding from [NSF grant DEB-1641145](https://nsf.gov/awardsearch/showAward?AWD_ID=1641145) and [NSF grant DEB-1518681](https://nsf.gov/awardsearch/showAward?AWD_ID=1518681)
