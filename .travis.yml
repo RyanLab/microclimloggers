@@ -9,17 +9,17 @@ matrix:
    - os: osx
      r: devel
      sudo: required
+     r_packages:
+      - plyr
+      - stringr
+      - tidyr
+      - lubridate
    - os: linux
      r: release
      sudo: required
    - os: linux
      r: devel
      sudo: required
-     r_packages:
-      - plyr
-      - stringr
-      - tidyr
-      - lubridate
  allow_failures:
    - r: devel
 warnings_are_errors: true
