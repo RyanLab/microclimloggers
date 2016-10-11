@@ -15,6 +15,11 @@ matrix:
    - os: linux
      r: devel
      sudo: required
+     r_packages:
+      - plyr
+      - stringr
+      - tidyr
+      - lubridate
  allow_failures:
    - r: devel
 warnings_are_errors: true
