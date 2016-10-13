@@ -5,3 +5,4 @@
 ^README-.*\.png$
 ^ryanlabloggers_sandbox\.R$
 inst/img
+^ropensci_presub\.md$

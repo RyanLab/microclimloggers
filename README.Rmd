@@ -41,7 +41,9 @@ library("microclimloggers")
 
 Get the path of an example file (HOBO RH Logger)
 ```{r}
-hobo_example_path <- system.file("extdata", "RH_41_073116.csv", package = "microclimloggers")
+
+hobo_example_path <- system.file("extdata", "HOBO_RH_logger.csv", package = "microclimloggers")
+
 ```
 
 Parse the file
@@ -59,3 +61,9 @@ plot(hobo_data)
 * Please [report any issues or bugs](https://github.com/pboesu/ryanlabloggers/issues).
 * License: GPL-3
 * Get citation information for `ryanlabloggers` in R doing `citation(package = 'ryanlabloggers')`
+
+##Funding
+
+* This work was supported by funding from [NSF grant DEB-1641145](https://nsf.gov/awardsearch/showAward?AWD_ID=1641145) and [NSF grant DEB-1518681](https://nsf.gov/awardsearch/showAward?AWD_ID=1518681)
+
+

@@ -9,6 +9,11 @@ matrix:
    - os: osx
      r: devel
      sudo: required
+     r_packages:
+      - plyr
+      - stringr
+      - tidyr
+      - lubridate
    - os: linux
      r: release
      sudo: required

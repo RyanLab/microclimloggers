@@ -11,8 +11,8 @@
 #' @return a microclim object
 #' @export
 read_hobo_csv <- function(csv_file){
-  #read first two lines using an encoding that removes BOM characters at strat of file if present
-  con <- file(csv_file, encoding="UTF-8-BOM")
+  #read first two lines using an encoding that removes BOM characters at start of file if present
+  con <- file(csv_file, encoding="UTF-8")
   header <- readLines(con=con, n=2)
   close(con)
   #split up the second header line which contains column names as well as the logger serial number and the time zone
