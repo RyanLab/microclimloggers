@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/RyanLab/ryanlabloggers.png)](https://travis-ci.org/RyanLab/ryanlabloggers)
+[![Build Status](https://api.travis-ci.org/RyanLab/microclimloggers.png)](https://travis-ci.org/RyanLab/microclimloggers)
 
 `ryanlabloggers`: Data Wrangling Functions For Microclimate Loggers
 
@@ -11,22 +11,22 @@ Install `ryanlabloggers` from GitHub:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("RyanLab/ryanlabloggers")
+devtools::install_github("RyanLab/microclimloggers")
 ```
 
 Examples
 --------
 
-Load `ryanlabloggers` package:
+Load `microclimloggers` package:
 
 ``` r
-library("ryanlabloggers")
+library("microclimloggers")
 ```
 
 Get the path of an example file (HOBO RH Logger)
 
 ``` r
-hobo_example_path <- system.file("extdata", "RH_41_073116.csv", package = "ryanlabloggers")
+hobo_example_path <- system.file("extdata", "RH_41_073116.csv", package = "microclimloggers")
 ```
 
 Parse the file
