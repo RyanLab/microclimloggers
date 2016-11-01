@@ -21,7 +21,7 @@ matrix:
      r: devel
      sudo: required
  allow_failures:
-   - r: devel
+   - os: osx
 warnings_are_errors: true
 
 
