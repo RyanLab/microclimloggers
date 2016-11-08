@@ -26,7 +26,7 @@ library("ryanlabloggers")
 Get the path of an example file (HOBO RH Logger)
 
 ``` r
-hobo_example_path <- system.file("extdata", "RH_41_073116.csv", package = "ryanlabloggers")
+hobo_example_path <- system.file("extdata", "HOBO_RH_logger.csv", package = "ryanlabloggers")
 ```
 
 Parse the file

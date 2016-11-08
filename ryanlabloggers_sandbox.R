@@ -18,7 +18,11 @@ str(test_inkbird)
 
 #iButtons
 #test_ibutton_csv <- "C:\\Users\\Philipp\\Dropbox\\RyanLabLoggerProject\\Casitas_1 month data.csv"
-test_ibutton_csv <- "/Users/phb/Dropbox/RyanLabLoggerProject/Casitas_1 month data.csv"
+#test_ibutton_csv <- "/Users/phb/Dropbox/RyanLabLoggerProject/Casitas_1 month data.csv"
+test_ibutton_csv <- "../casitas-data/Casitas_1_month_data.csv"
+nov_ibutton_csv <- "../casitas-data/Casitas_november_1_2016.csv"
 csv_file=test_ibutton_csv
 test_ibutton <- read_ibutton_csv(test_ibutton_csv)
+nov_ibutton <- read_ibutton_csv(nov_ibutton_csv)
 plot(test_ibutton)
+plot(nov_ibutton)
