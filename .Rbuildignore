@@ -6,3 +6,4 @@
 ^ryanlabloggers_sandbox\.R$
 inst/img
 ^ropensci_presub\.md$
+^inst/loggers\.bib$

@@ -1,4 +1,4 @@
-Package: ryanlabloggers
+Package: microclimloggers
 Type: Package
 Title: Data Wrangling Functions For Microclimate Loggers
 Version: 0.1
