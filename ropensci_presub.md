@@ -1,6 +1,24 @@
----
-title: "[pre-submission inquiry] a package for parsing microclimate logger data"
----
+### Summary
+
+-   What does this package do? (explain in 50 words or less):
+Microclimate loggers (e.g. iButton, iButton Hygrochron, HOBO pendant loggers) are commonly used in the environmental and biological sciences to record . They usually require proprietary hardware and software interfaces to download data and transcribe it into CSV-like or spreadsheet-like formats. These transcribed data formats differ between models and/or manufacturers, making synthesis of data from   An R package to process various microclimate logger data formats. Functions are provided to parse and reshape microclimate logger data (e.g. iButton, iButton Hygrochron, HOBO pendant loggers) that 
+
+
+-   Paste the full DESCRIPTION file inside a code block below:
+
+```
+
+```
+
+-   URL for the package (the development repository, not a stylized html page):
+
+-   Who is the target audience?  
+
+-   Are there other R packages that accomplish the same thing? If so, what is different about yours?  
+ There are a handful of solutions for individual logger makes or models e.g. https://github.com/search?l=R&q=ibutton&type=Repositories&utf8=%E2%9C%93 , the most mature is possibly https://github.com/aammd/ibuttonr, but to our best knowledge there are no packages on CRAN, and packages supporting loggers from different manufacturers
+
+### Requirements
+
 Confirm each of the following by checking the box.  This package:
 
 - [x] does not violate the Terms of Service of any service it interacts with. 
