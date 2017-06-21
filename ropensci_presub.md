@@ -15,7 +15,7 @@ Microclimate loggers (e.g. iButton, iButton Hygrochron, HOBO pendant loggers) ar
 -   Who is the target audience?  
 
 -   Are there other R packages that accomplish the same thing? If so, what is different about yours?  
- There are a handful of solutions for individual logger makes or models e.g. https://github.com/search?l=R&q=ibutton&type=Repositories&utf8=%E2%9C%93 , the most mature is possibly https://github.com/aammd/ibuttonr, but to our best knowledge there are no packages on CRAN, and packages supporting loggers from different manufacturers
+ There are a handful of solutions for individual logger makes or models e.g. https://github.com/search?l=R&q=ibutton&type=Repositories&utf8=%E2%9C%93 , the most mature ones are possibly https://github.com/aammd/ibuttonr and https://github.com/mltConsEcol/iButtonDataOrganizer, but to our best knowledge there are no packages on CRAN, nor packages supporting loggers from different manufacturers.
 
 ### Requirements
 
