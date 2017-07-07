@@ -193,6 +193,7 @@ parse_ibutton_list <- function(x){
 #' Function to read csv files containing data dumps of individual iButtons. Accounting for possible corruption in the date column.
 #'
 #' @param csv_file input path
+#' @param excel_origin origin date for dates encoded as Excel numerical date. Defaults to "1899-12-30", but may have to be changed to "1904-01-01" for certain files. See https://datapub.cdlib.org/2014/04/10/abandon-all-hope-ye-who-enter-dates-in-excel/
 #' @param parse_name function that tries to extract metadata from the file name
 #'
 #' @return a data.frame
