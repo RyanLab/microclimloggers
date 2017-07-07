@@ -108,7 +108,7 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 
 }
 
-#' Read iButton Hygrochron files
+#' Read iButton Hygrochron multi-logger files
 #'
 #' Function to read csv files containing data dumps of multiple iButtons.
 #'
@@ -128,8 +128,21 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
   close(con)
 
   #find start of individual data sets
-  start_of_set <- grep("Date/time logger downloaded:", all_lines)
-  end_of_file <- grep("download complete", all_lines)
+  if(any(grepl("Date/time logger downloaded:", all_lines))){
+    start_of_set <- grep("Date/time logger downloaded:", all_lines)
+  } else {
+    stop("Could not determine start of data set. Tried keyword 'Date/time logger downloaded:'.")
+  }
+  #find end of individual data set
+  if(any(grepl("download complete", all_lines))){
+    end_of_file <- grep("download complete", all_lines)
+  } else {
+    if(any(grepl("-end-", all_lines))){
+      end_of_file <- grep("-end-", all_lines)
+    } else {
+      stop("Could not determine end of data set. Tried keywords 'download complete' and '-end-'.")
+    }
+  }
   #datasets end two lines above the start of the next dataset, so we are using the start line indices to find the end lines.
   #last data set ends one line before end of file
   end_of_set <- c(start_of_set[-1]-2, end_of_file-1)
@@ -149,23 +162,107 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
 #' Internal function that parses an individual logger data block from a multilogger iButton file
 #'
 #' @param x list
+#' @importFrom lubridate parse_date_time
 #'
 #' @return a data.frame
+#' @export
 #'
 parse_ibutton_list <- function(x){
   #find individual header lengths
-  data_start <- min(grep("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", x))
+  data_start <- min(grep(",[0-9]+.[0-9]+,[0-9]+.[0-9]+", x))
+  #determine column numbers
+  n_columns <- length(stringr::str_split(x[data_start], ",")[[1]])
+  #determine data column names
+  col_names <- c("Timestamp","Temp.C","RH.perc", rep("NULL", n_columns - 3))
+  warning("using static column name order")
+  #parse data portion
+  tf <- textConnection(x[data_start:length(x)])
+  df_env <- read.csv(tf, stringsAsFactors = FALSE, header = FALSE, colClasses = c("character", "numeric", "numeric", rep("NULL", n_columns - 3)), col.names = col_names)
+  df_env$Timestamp <- parse_date_time(df_env$Timestamp, orders = c("ymd HMS","mdy HM"))
+  #find logger serial number
+  logger_serial_pos <- grep("Logger serial number:", x)
+  #remove quotes and split string retaining only the serial number
+  logger_serial <- stringr::str_split(x[logger_serial_pos], ',', simplify = TRUE)[1,2]
+  df_env$Logger.SN <- rep(logger_serial, nrow(df_env))
+  df_env <- tidyr::separate(df_env, Timestamp, c("Year", "Month", "Day", "Hour", "Minute", "Second"), remove=FALSE, convert=TRUE)
+  return(df_env)
+}
+
+#' Read iButton Hygrochron single-logger files
+#'
+#' Function to read csv files containing data dumps of individual iButtons. Accounting for possible corruption in the date column.
+#'
+#' @param csv_file input path
+#' @param parse_name function that tries to extract metadata from the file name
+#'
+#' @return a data.frame
+#' @importFrom plyr ldply
+#' @export
+#'
+read_ibutton_single_csv <- function(csv_file, parse_name = NULL, excel_origin = "1899-12-30"){
+  #change system locale to enable graceful string handling for files containing non-ascii characters
+  Sys.setlocale('LC_ALL','C')
+
+  con <- file(csv_file)
+  all_lines <- readLines(con=con)
+  close(con)
+
+  #find start of individual data sets
+  if(any(grepl("Date/time logger downloaded:", all_lines))){
+    start_of_set <- grep("Date/time logger downloaded:", all_lines)
+  } else {
+    start_of_set <- 1
+    warning("Could not determine start of data set. Tried keyword 'Date/time logger downloaded:'. Using line 1.")
+  }
+  #find end of individual data set
+  if(any(grepl("download complete", all_lines))){
+    end_of_file <- grep("download complete", all_lines)
+  } else {
+    if(any(grepl("-end-", all_lines))){
+      end_of_file <- grep("-end-", all_lines)
+    } else {
+      stop("Could not determine end of data set. Tried keywords 'download complete' and '-end-'.")
+    }
+  }
+
+  #parse individual sets
+  #find individual header lengths
+  if (any(grepl("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", all_lines))){
+    data_start <- min(grep("[0-9]{4}/[0-9]{2}/[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{2}", all_lines))
+    excel_date <- FALSE
+  } else {
+    if (any(grepl("[0-9]+.[0-9]+,[0-9]{2}", all_lines))){
+      data_start <- min(grep("[0-9]+.[0-9]+,[0-9]{2}", all_lines))
+      excel_date <- TRUE
+    } else {
+    stop("unrecognized timestamp format, or timestamp not in first column")
+  }}
+
   #determine data column names
   col_names <- c("Timestamp","Temp.C","RH.perc")
   warning("using static column name order")
   #parse data portion
-  tc <- textConnection(x[data_start:length(x)])
-  df_env <- read.csv(tc, stringsAsFactors = FALSE, header=FALSE, colClasses = c("POSIXct", "numeric","numeric"), col.names = col_names)
+  tc <- textConnection(all_lines[data_start:(end_of_file-1)])
+  if (!excel_date) {
+    #parse timestamp automatically
+    df_env <- read.csv(tc, stringsAsFactors = FALSE, header=FALSE, colClasses = c("POSIXct", "numeric","numeric"), col.names = col_names)
+  } else {
+    df_env <- read.csv(tc, stringsAsFactors = FALSE, header=FALSE, colClasses = c("numeric", "numeric","numeric"), col.names = col_names)
+    df_env$Timestamp <- as.POSIXct(df_env$Timestamp * (60*60*24), origin = excel_origin)
+  }
   #find logger serial number
-  logger_serial_pos <- grep("Logger serial number:", x)
+  if (any(grepl("Serial No", all_lines))){
+    logger_serial_pos <- grep("Serial No", all_lines)
+  } else {
+    stop("No logger serial number fund using keyword 'Serial No'")
+  }
   #remove quotes and split string retaining only the serial number
-  logger_serial <- stringr::str_split_fixed(stringr::str_replace_all(x[logger_serial_pos], pattern='\"', ''), ',', 2)[1,2]
+  logger_serial <- stringr::str_split_fixed(stringr::str_replace_all(all_lines[logger_serial_pos], pattern='\"', ''), ',', 2)[1,2]
   df_env$Logger.SN <- rep(logger_serial, nrow(df_env))
   df_env <- tidyr::separate(df_env, Timestamp, c("Year", "Month", "Day", "Hour", "Minute", "Second"), remove=FALSE, convert=TRUE)
-  return(df_env)
+
+  #restore system locale to operating system default
+  Sys.setlocale('LC_ALL','')
+
+  return(structure(list(df_env = df_env, df_logger = NULL), class="microclim"))
 }

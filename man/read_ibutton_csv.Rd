@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_loggers.R
 \name{read_ibutton_csv}
 \alias{read_ibutton_csv}
-\title{Read iButton Hygrochron files}
+\title{Read iButton Hygrochron multi-logger files}
 \usage{
 read_ibutton_csv(csv_file, parse_name = NULL)
 }
