@@ -148,6 +148,11 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
   end_of_set <- c(start_of_set[-1]-2, end_of_file-1)
   if(length(start_of_set)!=length(end_of_set)) stop("Unequal number of dataset headers and footers. File format not as expected.")
 
+  #pull out serial numbers to check they are present
+  serial_number_lines <- grep("Logger serial number", all_lines)
+  serial_numbers <- stringr::str_split(stringr::str_replace_all(all_lines[serial_number_lines], '\"', ''), ",", simplify = TRUE)[,2]
+  #TODO: detect empty strings and assign unique "missing lables"
+
   #create list of subfiles
   sets <- lapply(seq_along(start_of_set), function(x) all_lines[start_of_set[x]:end_of_set[x]])
   #parse individual sets
