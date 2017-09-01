@@ -15,7 +15,7 @@ read_ibutton_single_csv(csv_file, parse_name = NULL,
 \item{excel_origin}{origin date for dates encoded as Excel numerical date. Defaults to "1899-12-30", but may have to be changed to "1904-01-01" for certain files. See https://datapub.cdlib.org/2014/04/10/abandon-all-hope-ye-who-enter-dates-in-excel/}
 }
 \value{
-a data.frame
+a microclim object
 }
 \description{
 Function to read csv files containing data dumps of individual iButtons. Accounting for possible corruption in the date column.

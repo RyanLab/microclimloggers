@@ -150,7 +150,7 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
 
   #pull out serial numbers to check they are present
   serial_number_lines <- grep("Logger serial number", all_lines)
-  serial_numbers <- stringr::str_split(stringr::str_replace_all(all_lines[serial_number_lines], '\"', ''), ",", simplify = TRUE)[,2]
+  logger_serial <- stringr::str_replace_all(stringr::str_split_fixed(all_lines[serial_number_lines], ',', 2)[1,2], pattern = '[:punct:]', replacement = '')
   #TODO: detect empty strings and assign unique "missing lables"
 
   #create list of subfiles
@@ -187,7 +187,9 @@ parse_ibutton_list <- function(x){
   #find logger serial number
   logger_serial_pos <- grep("Logger serial number:", x)
   #remove quotes and split string retaining only the serial number
-  logger_serial <- stringr::str_split(x[logger_serial_pos], ',', simplify = TRUE)[1,2]
+  #logger_serial <- stringr::str_split(x[logger_serial_pos], ',', simplify = TRUE)[1,2]
+  logger_serial <- stringr::str_replace_all(stringr::str_split_fixed(x[logger_serial_pos], ',', 2)[1,2], pattern = '[:punct:]', replacement = '')
+  df_env$Logger.SN <- rep(logger_serial, nrow(df_env))
   df_env$Logger.SN <- rep(logger_serial, nrow(df_env))
   df_env <- tidyr::separate(df_env, Timestamp, c("Year", "Month", "Day", "Hour", "Minute", "Second"), remove=FALSE, convert=TRUE)
   return(df_env)
@@ -201,7 +203,8 @@ parse_ibutton_list <- function(x){
 #' @param excel_origin origin date for dates encoded as Excel numerical date. Defaults to "1899-12-30", but may have to be changed to "1904-01-01" for certain files. See https://datapub.cdlib.org/2014/04/10/abandon-all-hope-ye-who-enter-dates-in-excel/
 #' @param parse_name function that tries to extract metadata from the file name
 #'
-#' @return a data.frame
+#'
+#' @return a microclim object
 #' @importFrom plyr ldply
 #' @export
 #'
@@ -271,4 +274,16 @@ read_ibutton_single_csv <- function(csv_file, parse_name = NULL, excel_origin = 
   Sys.setlocale('LC_ALL','')
 
   return(structure(list(df_env = df_env, df_logger = NULL), class="microclim"))
+}
+
+#' Extract environmental data
+#'
+#' @param x a microclim object
+#'
+#' @return a data.frame
+#' @export
+#'
+get_env_df <- function(x){
+  if(!inherits(x, "microclim")) stop("x is not of class microclim" )
+  return(x$df_env)
 }
