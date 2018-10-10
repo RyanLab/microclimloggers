@@ -17,4 +17,3 @@ a plot
 \description{
 Plot microclimate logger output
 }
-

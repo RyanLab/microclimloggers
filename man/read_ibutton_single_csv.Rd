@@ -20,4 +20,8 @@ a microclim object
 \description{
 Function to read csv files containing data dumps of individual iButtons. Accounting for possible corruption in the date column.
 }
+\section{Warning}{
+
+Temperature data are assumed to be in units degrees Celsius.
+}
 

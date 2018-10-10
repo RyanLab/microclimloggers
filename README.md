@@ -2,7 +2,7 @@
 
 `microclimloggers`: Data Wrangling Functions For Microclimate Loggers
 
-An R package to process various microclimate logger data formats. Functions are provided to parse and reshape microclimate logger data (e.g. iButton, iButton Hygrochron, HOBO pendant loggers) that are commonly used in the environmental and biological sciences.
+An R package to process various microclimate logger data formats. Functions are provided to parse and reshape microclimate logger data (e.g. iButton, iButton Hygrochron, HOBO pendant loggers [temperature, humidity, light]) that are commonly used in the environmental and biological sciences.
 
 Installation
 ------------

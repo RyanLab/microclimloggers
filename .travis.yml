@@ -14,6 +14,8 @@ matrix:
       - stringr
       - tidyr
       - lubridate
+      - dplyr
+      - units
    - os: linux
      r: release
      sudo: required

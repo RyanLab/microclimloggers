@@ -17,4 +17,8 @@ a data.frame
 \description{
 Function to read csv files containing data dumps of multiple iButtons.
 }
+\section{Warning}{
+
+Temperature data are assumed to be in units degrees Celsius.
+}
 
