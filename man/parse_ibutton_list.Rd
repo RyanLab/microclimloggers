@@ -15,4 +15,3 @@ a data.frame
 \description{
 Internal function that parses an individual logger data block from a multilogger iButton file
 }
-

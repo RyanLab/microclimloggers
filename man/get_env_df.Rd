@@ -15,4 +15,3 @@ a data.frame
 \description{
 Extract environmental data
 }
-

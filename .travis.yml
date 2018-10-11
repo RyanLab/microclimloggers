@@ -14,6 +14,8 @@ matrix:
       - stringr
       - tidyr
       - lubridate
+      - dplyr
+      - units
    - os: linux
      r: release
      sudo: required
@@ -22,6 +24,8 @@ matrix:
      sudo: required
  allow_failures:
    - os: osx
+before_install:
+  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install -y libudunits2-dev; fi
 warnings_are_errors: true
 
 

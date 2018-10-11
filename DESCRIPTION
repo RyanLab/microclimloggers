@@ -1,9 +1,17 @@
 Package: microclimloggers
 Type: Package
 Title: Data Wrangling Functions For Microclimate Loggers
-Version: 0.1
-Date: 2016-08-16
-Author: Philipp Boersch-Supan
+Version: 0.1.1
+Date: 2018-10-10
+Authors@R:
+    c(person(given = "Philipp",
+            family = "Boersch-Supan",
+            role = c("cre", "aut"),
+            email = "pboesu@gmail.com"),
+      person(given = "William",
+            family = "Petry",
+            role = c("ctb"),
+            email = "william.petry@usys.ethz.ch"))
 Maintainer: Philipp Boersch-Supan <pboesu@gmail.com>
 Description: This package provides functions to parse and reshape microclimate
     logger data (e.g. iButton Hygrochron, HOBO pendant loggers) for various field
@@ -11,6 +19,6 @@ Description: This package provides functions to parse and reshape microclimate
     generalize to other loggers from the same manufacturers.
 License: GPL-3
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.0
 Imports: lubridate, stringr, tidyr,
-    plyr
+    plyr, dplyr, units

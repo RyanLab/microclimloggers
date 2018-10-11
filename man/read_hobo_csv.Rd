@@ -4,10 +4,12 @@
 \alias{read_hobo_csv}
 \title{Read HOBO loggers}
 \usage{
-read_hobo_csv(csv_file)
+read_hobo_csv(csv_file, units_out = c("as.is", "metric", "imperial"))
 }
 \arguments{
 \item{csv_file}{path to input csv file}
+
+\item{units_out}{unit system to use in the returned data, defaulting to "as is" but optionally converting to "metric" or "imperial"}
 }
 \value{
 a microclim object
@@ -15,4 +17,3 @@ a microclim object
 \description{
 Read HOBO loggers
 }
-

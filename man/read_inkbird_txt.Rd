@@ -19,4 +19,8 @@ a microclim object
 \description{
 Read Ink-Bird THC-4 data logger textfile
 }
+\section{Warning}{
+
+Temperature data are assumed to be in units degrees Celsius.
+}
 
