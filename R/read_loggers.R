@@ -51,7 +51,7 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
     units(temp) <- dplyr::case_when(
       any(grepl("Temp, .F", header_bits)) ~ "fahrenheit",
       any(grepl("Temp, .C", header_bits)) ~ "celsius"
-    )
+    ) #this bit causes encoding confusion on windows
     units(temp) <- with(units::ud_units,
                         dplyr::case_when(
                           units_out == "metric" ~ "celsius",
@@ -62,7 +62,7 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
   }
   if(length(grep('RH', header_bits))>0) {
     rh <- hobofile[, grep("RH", header_bits)]
-    df_out$RH.perc <- rh
+    df_out$RH <- rh
   }
   if (length(grep("Intensity", header_bits)) > 0) {
     illum <- hobofile[, grep("Intensity", header_bits)]
@@ -108,6 +108,9 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
                                        ifelse(exists("rh"), "percent (%)", NA),
                                        ifelse(exists("illum"), toString(units(illum)), NA)),
                               stringsAsFactors = FALSE)
+  # Manually fix encoding of unit strings
+  # (known, but open issue in units: https://github.com/r-quantities/units/issues/73 )
+  Encoding(df_units_base$unit) <- rep('UTF-8', nrow(df_units_base))
   df_units <- df_units_base[complete.cases(df_units_base), ]
 
   return(structure(list(df_env = df_env, df_logger = df_logger, df_units = df_units),
@@ -148,7 +151,7 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
 
   #Find and add environmental variables to output
   if(length(grep('Temp', col_names))>0) df_env$Temp <- txtfile[,grep('Temp', col_names)]
-  if(length(grep('Humidity', col_names))>0) df_env$RH.perc <- txtfile[,grep('Humidity', col_names)]
+  if(length(grep('Humidity', col_names))>0) df_env$RH <- txtfile[,grep('Humidity', col_names)]
   #bind variables, timestamp, and timezone
   df_env <- cbind(subset(txtfile, select = c("Year", "Month", "Day", "Hour", "Minute", "Second", "tz")), df_env)
 
@@ -156,7 +159,7 @@ read_inkbird_txt <- function(txt_file, parse_name = NULL, tz=NA){
   env_names <- names(df_env)
   df_units_base <- data.frame(variable = c("Temp", "RH"),
                               unit = c(ifelse("Temp" %in% env_names, "deg C", NA),
-                                       ifelse("RH.perc" %in% env_names, "percent (%)", NA)),
+                                       ifelse("RH" %in% env_names, "percent (%)", NA)),
                               stringsAsFactors = FALSE)
   df_units <- df_units_base[complete.cases(df_units_base), ]
 
@@ -223,7 +226,7 @@ read_ibutton_csv <- function(csv_file, parse_name = NULL){
   env_names <- names(df_env)
   df_units_base <- data.frame(variable = c("Temp", "RH"),
                               unit = c(ifelse("Temp" %in% env_names, "deg C", NA),
-                                       ifelse("RH.perc" %in% env_names, "percent (%)", NA)),
+                                       ifelse("RH" %in% env_names, "percent (%)", NA)),
                               stringsAsFactors = FALSE)
   df_units <- df_units_base[complete.cases(df_units_base), ]
 
@@ -245,7 +248,7 @@ parse_ibutton_list <- function(x){
   #determine column numbers
   n_columns <- length(stringr::str_split(x[data_start], ",")[[1]])
   #determine data column names
-  col_names <- c("Timestamp","Temp","RH.perc", rep("NULL", n_columns - 3))
+  col_names <- c("Timestamp","Temp","RH", rep("NULL", n_columns - 3))
   warning("using static column name order")
   #parse data portion
   tf <- textConnection(x[data_start:length(x)])
@@ -317,7 +320,7 @@ read_ibutton_single_csv <- function(csv_file, parse_name = NULL, excel_origin = 
   }}
 
   #determine data column names
-  col_names <- c("Timestamp","Temp","RH.perc")
+  col_names <- c("Timestamp","Temp","RH")
   warning("using static column name order")
   #parse data portion
   tc <- textConnection(all_lines[data_start:(end_of_file-1)])
@@ -346,7 +349,7 @@ read_ibutton_single_csv <- function(csv_file, parse_name = NULL, excel_origin = 
   env_names <- names(df_env)
   df_units_base <- data.frame(variable = c("Temp", "RH"),
                               unit = c(ifelse("Temp" %in% env_names, "deg C", NA),
-                                       ifelse("RH.perc" %in% env_names, "percent (%)", NA)),
+                                       ifelse("RH" %in% env_names, "percent (%)", NA)),
                               stringsAsFactors = FALSE)
   df_units <- df_units_base[complete.cases(df_units_base), ]
 

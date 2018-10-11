@@ -18,8 +18,8 @@ plot.microclim <- function(x, ...){
          ylab = paste("Temp", x$df_units[x$df_units$variable == "Temp", "unit"]),
          main = unique(x$df_env$Logger.SN), ...)
   }
-  if("RH.perc" %in% series) {
-    plot(x$df_env$Timestamp, x$df_env$RH.perc, type = "l", col = 'blue',
+  if("RH" %in% series) {
+    plot(x$df_env$Timestamp, x$df_env$RH, type = "l", col = 'blue',
          xlab = "Time",
          ylab = "RH %", ...)
   }
@@ -32,3 +32,4 @@ plot.microclim <- function(x, ...){
   # restore old par
   par(old.par)
 }
+
