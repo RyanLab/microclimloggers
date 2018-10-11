@@ -24,6 +24,8 @@ matrix:
      sudo: required
  allow_failures:
    - os: osx
+before_install:
+  - sudo apt-get install -y libudunits2-dev
 warnings_are_errors: true
 
 
