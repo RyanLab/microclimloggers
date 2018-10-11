@@ -7,16 +7,19 @@ Authors@R:
     c(person(given = "Philipp",
             family = "Boersch-Supan",
             role = c("cre", "aut"),
-            email = "pboesu@gmail.com"),
+            email = "pboesu@gmail.com",
+            comment = c(ORCID = "0000-0001-6723-6833")),
       person(given = "William",
             family = "Petry",
             role = c("ctb"),
-            email = "william.petry@usys.ethz.ch"))
+            email = "william.petry@usys.ethz.ch",
+            comment = c(ORCID = "0000-0002-5230-5987")))
 Maintainer: Philipp Boersch-Supan <pboesu@gmail.com>
 Description: This package provides functions to parse and reshape microclimate
-    logger data (e.g. iButton Hygrochron, HOBO pendant loggers) for various field
-    projects of the Ryan lab at UF Geography. These functions may or may not
-    generalize to other loggers from the same manufacturers.
+    logger data (e.g. iButton Hygrochron, HOBO pendant loggers). It originated as 
+    an internal package for various field projects of the Ryan lab at UF Geography.
+    These functions may or may not generalize to other loggers from the same 
+    manufacturers.
 License: GPL-3
 LazyData: TRUE
 RoxygenNote: 6.1.0
