@@ -85,17 +85,17 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
 
   #Find and process logger events
   logger_events <- numeric(4)
-  HOBO_names <- c('Host Connected', 'Coupler Detached', 'Coupler Attached', 'End Of File')
+  HOBO_names <- c('Host Connected', 'Coupler Detached', 'Coupler Attached', 'End Of File', 'Stopped')
   df_names <- stringr::str_replace_all(HOBO_names, ' ', '')
-  for (i in 1:4){
-    if(length(grep(HOBO_names[i], header_bits))>0) {
+  for (i in 1:5){
+    if(length(grep(HOBO_names[i], header_bits)) > 0) {
     names(hobofile)[grep(HOBO_names[i], header_bits)] <- df_names[i]
     logger_events[i] <- grep(HOBO_names[i], header_bits)
     }
   }
 
   if(sum(logger_events) > 0){
-    df_logger <- tidyr::gather(hobofile, logger, event, logger_events, factor_key = TRUE)
+    df_logger <- tidyr::gather(hobofile, logger, event, logger_events[logger_events > 0], factor_key = TRUE)
     df_logger <- subset(df_logger[!is.na(df_logger$event),], select = c("timestamp", "logger"))
     df_logger$Logger.SN = rep(SN, nrow(df_logger))
   } else {
