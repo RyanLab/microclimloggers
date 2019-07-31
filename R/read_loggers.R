@@ -73,7 +73,7 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
     units(illum) <- with(units::ud_units,
                          dplyr::case_when(
                            units_out == "metric" ~ "lux",
-                           units_out == "imperial" ~ "lum/ft^2",
+                           units_out == "imperial" ~ "lumen/ft^2",
                            TRUE ~ toString(units(illum))
                          ))
     df_out$Illum <- units::drop_units(illum)

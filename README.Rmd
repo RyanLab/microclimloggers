@@ -41,9 +41,7 @@ library("microclimloggers")
 
 Get the path of an example file (HOBO RH Logger)
 ```{r}
-
 hobo_example_path <- system.file("extdata", "HOBO_RH_logger.csv", package = "microclimloggers")
-
 ```
 
 Parse the file
@@ -55,6 +53,27 @@ Plot the file
 ```{r}
 plot(hobo_data)
 ```
+
+The `read_hobo_csv` function has additional features. It flexibly handles any combination of temperature, humidity, and light.
+```{r}
+# logger deployed at ground level over winter to measure snowmelt date
+templight_path <- system.file("extdata", "HOBO_LIGHT_logger.csv", package = "microclimloggers")
+templight_data <- read_hobo_csv(templight_path)
+plot(templight_data)  # snow melted in late April
+```
+
+It also reports the units of measurement...
+```{r}
+templight_data$df_units
+```
+
+...and allows for conversion between measurement systems during data import.
+```{r}
+templight_imperl <- read_hobo_csv(templight_path, units_out = "imperial")
+plot(templight_imperl)
+```
+
+All other functions assume that metric units are used.
 
 ## Meta
 
