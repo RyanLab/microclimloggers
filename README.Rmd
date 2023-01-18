@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Build Status](https://api.travis-ci.org/RyanLab/microclimloggers.png)](https://travis-ci.org/RyanLab/microclimloggers)
+[![R](https://github.com/RyanLab/microclimloggers/actions/workflows/r.yml/badge.svg)](https://github.com/RyanLab/microclimloggers/actions/workflows/r.yml)
 
 `microclimloggers`: Data Wrangling Functions For Microclimate Loggers
 
