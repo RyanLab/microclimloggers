@@ -12,7 +12,7 @@ Authors@R:
       person(given = "William",
             family = "Petry",
             role = c("ctb"),
-            email = "william.petry@usys.ethz.ch",
+            email = "wpetry@ncsu.edu",
             comment = c(ORCID = "0000-0002-5230-5987")))
 Maintainer: Philipp Boersch-Supan <pboesu@gmail.com>
 Description: This package provides functions to parse and reshape microclimate
@@ -22,6 +22,6 @@ Description: This package provides functions to parse and reshape microclimate
     manufacturers.
 License: GPL-3
 LazyData: TRUE
-RoxygenNote: 6.1.0
+RoxygenNote: 7.2.3
 Imports: lubridate, stringr, tidyr,
     plyr, dplyr, units
