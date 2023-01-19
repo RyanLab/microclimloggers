@@ -4,8 +4,11 @@
 \alias{read_ibutton_single_csv}
 \title{Read iButton Hygrochron single-logger files}
 \usage{
-read_ibutton_single_csv(csv_file, parse_name = NULL,
-  excel_origin = "1899-12-30")
+read_ibutton_single_csv(
+  csv_file,
+  parse_name = NULL,
+  excel_origin = "1899-12-30"
+)
 }
 \arguments{
 \item{csv_file}{input path}

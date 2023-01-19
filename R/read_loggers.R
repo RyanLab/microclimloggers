@@ -1,4 +1,3 @@
-
 #' Read HOBO loggers
 #'
 #' @param csv_file path to input csv file
@@ -9,7 +8,7 @@
 #' @importFrom stats complete.cases
 #' @importFrom utils read.csv
 #' @importFrom dplyr case_when
-#' @importFrom units ud_units
+#' @importFrom units set_units
 #' @importFrom units drop_units
 #'
 #' @return a microclim object
@@ -52,12 +51,11 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
       any(grepl("Temp, .F", header_bits)) ~ "fahrenheit",
       any(grepl("Temp, .C", header_bits)) ~ "celsius"
     ) #this bit causes encoding confusion on windows
-    units(temp) <- with(units::ud_units,
-                        dplyr::case_when(
-                          units_out == "metric" ~ "celsius",
-                          units_out == "imperial" ~ "fahrenheit",
-                          TRUE ~ toString(units(temp))
-                        ))
+    if(units_out == "metric") {
+      units(temp) <- units::make_units(deg_C)
+    } else if (units_out == "imperial") {
+      units(temp) <- units::make_units(deg_F)
+    }
     df_out$Temp <- units::drop_units(temp)
   }
   if(length(grep('RH', header_bits))>0) {
@@ -70,12 +68,11 @@ read_hobo_csv <- function(csv_file, units_out = c("as.is", "metric", "imperial")
       any(grepl("Intensity, lum/ft", header_bits)) ~ "lumen/ft^2",
       any(grepl("Intensity, Lux", header_bits)) ~ "lux"
     )
-    units(illum) <- with(units::ud_units,
-                         dplyr::case_when(
-                           units_out == "metric" ~ "lux",
-                           units_out == "imperial" ~ "lumen/ft^2",
-                           TRUE ~ toString(units(illum))
-                         ))
+    if(units_out == "metric") {
+      units(illum) <- units::make_units(lux)
+    } else if (units_out == "imperial") {
+      units(illum) <- units::make_units(lumen/ft^2)
+    }
     df_out$Illum <- units::drop_units(illum)
   }
   #bind variables, timestamp, and timezone
