@@ -11,9 +11,13 @@ name: R
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
+      - gh-actions
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
+      - gh-actions
 
 permissions:
   contents: read
