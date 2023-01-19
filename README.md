@@ -1,5 +1,4 @@
-[![Build
-Status](https://api.travis-ci.org/RyanLab/microclimloggers.png)](https://travis-ci.org/RyanLab/microclimloggers)
+[![R](https://github.com/RyanLab/microclimloggers/actions/workflows/r.yml/badge.svg)](https://github.com/RyanLab/microclimloggers/actions/workflows/r.yml)
 
 `microclimloggers`: Data Wrangling Functions For Microclimate Loggers
 
@@ -9,8 +8,7 @@ Functions are provided to parse and reshape microclimate logger data
 humidity, light\]) that are commonly used in the environmental and
 biological sciences.
 
-Installation
-------------
+## Installation
 
 Install `microclimloggers` from GitHub:
 
@@ -19,8 +17,7 @@ install.packages("devtools")
 devtools::install_github("RyanLab/microclimloggers")
 ```
 
-Examples
---------
+## Examples
 
 Load `microclimloggers` package:
 
@@ -81,8 +78,7 @@ plot(templight_imperl)
 
 All other functions assume that metric units are used.
 
-Meta
-----
+## Meta
 
 -   Please [report any issues or
     bugs](https://github.com/pboesu/microclimloggers/issues).
@@ -90,7 +86,7 @@ Meta
 -   Get citation information for `microclimloggers` in R doing
     `citation(package = 'microclimloggers')`
 
-\#\#Funding
+##Funding
 
 -   This work was supported by funding from [NSF grant
     DEB-1641145](https://nsf.gov/awardsearch/showAward?AWD_ID=1641145)
